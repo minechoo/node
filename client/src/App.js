@@ -19,7 +19,7 @@ function App() {
 			<input type='text' id='tit' value={Tit} onChange={(e) => setTit(e.target.value)} />
 			<br />
 			<label htmlFor='con'>Content</label>
-			<textarea name='' id='con' cols='30' rows='10' value={Con} onChange={(e) => setCon(e.target.value)}></textarea>
+			<textarea name='con' id='con' cols='30' rows='3' value={Con} onChange={(e) => setCon(e.target.value)}></textarea>
 			<br />
 			<button onClick={handleCreate}>SEND</button>
 		</section>

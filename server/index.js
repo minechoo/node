@@ -32,7 +32,7 @@ app.get('*', (req, res) => {
 	res.sendFile(path.join(__dirname, '../client/build/index.html'));
 });
 
-//create
+//create//글저장
 //글 저장 작업흐름
 //Counter 모델에서부터 글번호 가져옴 -> body.parser로 제목, 본문 가져와서 글 번호를 추가하여 모델 인스턴스 저장
 //저장이 완료되면 카운터 모델에 있는 글번호 증가
@@ -56,7 +56,7 @@ app.post('/api/create', (req, res) => {
 		});
 });
 
-//read
+//read//목록 출력 라우터
 app.post('/api/read', (req, res) => {
 	Post.find()
 		.exec()
@@ -68,4 +68,12 @@ app.post('/api/read', (req, res) => {
 			console.log(err);
 			res.json({ success: false });
 		});
+});
+
+//상세페이지 출력 라우터
+app.post('/api/detail', (req, res) => {
+	Post.findOne({ communityNum: req.body.id })
+		.exec()
+		.then((doc) => res.json({ success: true, detail: doc }))
+		.catch((err) => res.json({ success: false, err: err }));
 });

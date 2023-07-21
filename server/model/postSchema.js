@@ -6,10 +6,14 @@ Schema : 데이터 베이스에 저장될 자료형식이나 키값을 강제하
 */
 const mongoose = require('mongoose');
 //게시근 객체가 저장될 스키마구조 생성
-const postShema = new mongoose.Schema({
-	title: String,
-	content: String,
-});
+const postShema = new mongoose.Schema(
+	{
+		title: String,
+		content: String,
+		communityNum: Number,
+	},
+	{ collection: 'Posts' }
+);
 //게시글 스키마구조가 적용된 모델생성자를 만든뒤 export
 const Post = mongoose.model('Post', postShema);
 module.exports = { Post };

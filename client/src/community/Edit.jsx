@@ -1,7 +1,7 @@
 import Layout from '../common/Layout';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 /*
 글수정 흐름
@@ -13,6 +13,7 @@ import { useParams } from 'react-router-dom';
 */
 
 function Edit() {
+	const navigate = useNavigate();
 	const params = useParams();
 	const [Title, setTitle] = useState('');
 	const [Content, setContent] = useState('');
@@ -30,6 +31,7 @@ function Edit() {
 		axios.post('/api/community/edit', item).then((res) => {
 			if (res.data.success) {
 				alert('글 수정이 완료되었습니다.');
+				navigate(-1);
 			} else {
 				alert('글 수정에 실패했습니다.');
 			}

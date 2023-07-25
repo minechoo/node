@@ -1,8 +1,13 @@
 import { Link, NavLink } from 'react-router-dom';
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
+import firebase from '../firebase';
 
 function Header() {
 	const activeStyle = { color: 'aqua' };
+	const user = useSelector((store) => store.user);
+	console.log(user);
+
 	const HeaderWrap = styled.header`
 		width: 350px;
 		height: 100vh;
@@ -56,24 +61,35 @@ function Header() {
 						Show List
 					</NavLink>
 				</li>
-				<li>
-					<NavLink to='/create' style={(porps) => (porps.isActive ? activeStyle : null)}>
-						Write Post
-					</NavLink>
-				</li>
+				{user.uid !== '' && (
+					<li>
+						<NavLink to='/create' style={(props) => (props.isActive ? activeStyle : null)}>
+							Write Post
+						</NavLink>
+					</li>
+				)}
 			</Gnb>
 
 			<Util>
-				<li>
-					<NavLink to='/login' style={(porps) => (porps.isActive ? activeStyle : null)}>
-						Login
-					</NavLink>
-				</li>
-				<li>
-					<NavLink to='/join' style={(porps) => (porps.isActive ? activeStyle : null)}>
-						Join
-					</NavLink>
-				</li>
+				{user.uid === '' ? (
+					<>
+						<li>
+							<NavLink to='/login' style={(props) => (props.isActive ? activeStyle : null)}>
+								Login
+							</NavLink>
+						</li>
+						<li>
+							<NavLink to='/join' style={(props) => (props.isActive ? activeStyle : null)}>
+								Join
+							</NavLink>
+						</li>
+					</>
+				) : (
+					<>
+						<li>{`${user.displayName}님 반갑습니다.`}</li>
+						<li onClick={() => firebase.auth().signOut()}>로그아웃</li>
+					</>
+				)}
 			</Util>
 		</HeaderWrap>
 	);

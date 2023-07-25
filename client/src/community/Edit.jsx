@@ -2,6 +2,7 @@ import Layout from '../common/Layout';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 /*
 글수정 흐름
@@ -13,6 +14,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 */
 
 function Edit() {
+	const user = useSelector((store) => store.user);
 	const navigate = useNavigate();
 	const params = useParams();
 	const [Title, setTitle] = useState('');
@@ -39,13 +41,14 @@ function Edit() {
 	};
 
 	useEffect(() => {
+		if (user.uid === '') navigate('/');
 		axios.post('/api/community/detail', params).then((res) => {
 			if (res.data.success) {
 				console.log(res.data.detail);
 				setDetail(res.data.detail);
 			}
 		});
-	}, []);
+	}, [navigate, user, params]);
 
 	useEffect(() => {
 		//서버쪽으로 새로운 응답이 넘어오자마자

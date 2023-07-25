@@ -2,8 +2,10 @@ import { Link, NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import firebase from '../firebase';
+import { useNavigate } from 'react-router-dom';
 
 function Header() {
+	const navigate = useNavigate();
 	const activeStyle = { color: 'aqua' };
 	const user = useSelector((store) => store.user);
 	console.log(user);
@@ -43,9 +45,20 @@ function Header() {
 		gap: 20px;
 
 		li {
+			color: #777;
+			em {
+				color: orange;
+			}
+			span {
+				cursor: pointer;
+				&:hover {
+					color: hotpink;
+				}
+			}
+
 			a {
 				font: 14px/1 'arial';
-				color: #555;
+				color: #777;
 			}
 		}
 	`;
@@ -86,8 +99,18 @@ function Header() {
 					</>
 				) : (
 					<>
-						<li>{`${user.displayName}님 반갑습니다.`}</li>
-						<li onClick={() => firebase.auth().signOut()}>로그아웃</li>
+						<li>
+							<em>{user.displayName}</em>님 반갑습니다.
+						</li>
+						<li
+							onClick={() => {
+								firebase.auth().signOut();
+								alert('로그아웃되었습니다');
+								navigate('/');
+							}}
+						>
+							<span>로그아웃</span>
+						</li>
 					</>
 				)}
 			</Util>

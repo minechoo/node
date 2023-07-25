@@ -25,10 +25,6 @@ function App() {
 		});
 	}, [dispatch]);
 
-	useEffect(() => {
-		//firebase.auth().signOut();
-	}, []);
-
 	return (
 		<>
 			<GlobalStyle />

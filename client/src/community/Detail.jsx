@@ -58,9 +58,10 @@ function Detail() {
 			<DetailWrap>
 				<h2>{Detail?.title}</h2>
 				<p>{Detail?.content}</p>
+				<p>글 작성자: {Detail?.writer.displayName}</p>
 			</DetailWrap>
 
-			{user.uid !== '' && (
+			{user.uid === Detail?.writer.uid && (
 				<BtnSet>
 					<button>
 						<Link to={`/edit/${params.id}`}>Edit</Link>

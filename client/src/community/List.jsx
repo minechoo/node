@@ -30,6 +30,7 @@ function List() {
 						<h2>
 							<Link to={`/detail/${post.communityNum}`}>{post.title}</Link>
 						</h2>
+						<p>작성자 : {post.writer.displayName}</p>
 					</Item>
 				);
 			})}

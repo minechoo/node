@@ -4,6 +4,7 @@ import firebase from '../firebase';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
+import axios from 'axios';
 
 const BtnSet = styled.nav`
 	margin-top: 20px;
@@ -23,9 +24,25 @@ function Join() {
 		if (!(Name && Email && Pwd1 && Pwd2)) return alert('모든 항목을 입력하세요');
 		if (Pwd1 !== Pwd2) return alert('비밀번호 2개를 동일하게 입력하세요');
 		//위의 조건을 통과하면 필요한 정보값을 firebase에 등록처리
-		const createUser = await firebase.auth().createUserWithEmailAndPassword(Email, Pwd1);
-		await createUser.user.updateProfile({ displayName: Name });
-		console.log(createUser.user);
+		const createdUser = await firebase.auth().createUserWithEmailAndPassword(Email, Pwd1);
+		await createdUser.user.updateProfile({ displayName: Name });
+		console.log(createdUser.user);
+
+		firebase.auth().signOut();
+
+		const item = {
+			displayName: createdUser.user.multiFactor.user.displayName,
+			uid: createdUser.user.multiFactor.user.uid,
+		};
+
+		axios.post('/api/user/join', item).then((res) => {
+			if (res.data.success) {
+				// firebase.auth().signOut();
+				// alert('성공적으로 회원가입 되었습니다.');
+				navigate('/login');
+			} else return alert('회원가입에 실패했습니다.');
+		});
+
 		alert('성공적으로 회원가입 되었습니다');
 		navigate('/login');
 	};

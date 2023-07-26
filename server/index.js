@@ -13,6 +13,8 @@ app.use(express.static(path.join(__dirname, '../client/build')));
 
 //커뮤니티 전용 라우터 추가
 app.use('/api/community', require('./router/communityRouter.js'));
+//유저 전용 라우터
+app.use('/api/user', require('./router/userRouter.js'));
 
 app.listen(port, () => {
 	mongoose

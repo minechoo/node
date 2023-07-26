@@ -11,7 +11,7 @@ function Create() {
 	const [Con, setCon] = useState('');
 
 	const handleCreate = () => {
-		const item = { title: Tit, content: Con };
+		const item = { title: Tit, content: Con, uid: user.uid };
 		axios
 			.post('/api/community/create', item)
 			.then((res) => {

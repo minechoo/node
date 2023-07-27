@@ -15,7 +15,7 @@ const Item = styled.article`
 function List() {
 	const [Posts, setPosts] = useState([]);
 	useEffect(() => {
-		axios.get('/api/community/read').then((res) => {
+		axios.post('/api/community/read').then((res) => {
 			console.log(res);
 			setPosts(res.data.communityList);
 		});

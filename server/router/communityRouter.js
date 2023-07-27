@@ -53,10 +53,11 @@ router.post('/create', (req, res) => {
 });
 
 //read//목록 출력 라우터
-router.get('/read', (req, res) => {
+router.post('/read', (req, res) => {
 	Post.find()
 		.populate('writer')
 		.sort({ createdAt: -1 })
+		.limit(req.body.count)
 		.exec()
 		.then((doc) => {
 			console.log(doc);

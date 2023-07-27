@@ -16,7 +16,7 @@ const postShema = new mongoose.Schema(
 			type: mongoose.Schema.Types.ObjectId,
 		},
 	},
-	{ collection: 'Posts' }
+	{ collection: 'Posts', timestamps: true }
 );
 //게시글 스키마구조가 적용된 모델생성자를 만든뒤 export
 const Post = mongoose.model('Post', postShema);

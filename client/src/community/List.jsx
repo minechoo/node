@@ -31,6 +31,10 @@ function List() {
 							<Link to={`/detail/${post.communityNum}`}>{post.title}</Link>
 						</h2>
 						<p>작성자 : {post.writer.displayName}</p>
+						<ul>
+							<li>수정날짜: {post?.updatedAt.split('T')[0]}</li>
+							<li>글 작성날짜 : {post?.createdAt.split('T')[0]}</li>
+						</ul>
 					</Item>
 				);
 			})}

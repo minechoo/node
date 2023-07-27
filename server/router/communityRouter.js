@@ -56,6 +56,7 @@ router.post('/create', (req, res) => {
 router.get('/read', (req, res) => {
 	Post.find()
 		.populate('writer')
+		.sort({ createdAt: -1 })
 		.exec()
 		.then((doc) => {
 			console.log(doc);

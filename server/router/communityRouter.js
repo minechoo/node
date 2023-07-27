@@ -53,11 +53,11 @@ router.post('/create', (req, res) => {
 });
 
 //read//목록 출력 라우터
-router.post('/read', (req, res) => {
+router.get('/read/:num', (req, res) => {
 	Post.find()
 		.populate('writer')
 		.sort({ createdAt: -1 })
-		.limit(req.body.count)
+		.limit(req.params.num)
 		.exec()
 		.then((doc) => {
 			console.log(doc);
@@ -70,8 +70,8 @@ router.post('/read', (req, res) => {
 });
 
 //상세페이지 출력 라우터
-router.post('/detail', (req, res) => {
-	Post.findOne({ communityNum: req.body.id })
+router.get('/detail/:id', (req, res) => {
+	Post.findOne({ communityNum: req.params.id })
 		.populate('writer')
 		.exec()
 		.then((doc) => res.json({ success: true, detail: doc }))
@@ -79,7 +79,7 @@ router.post('/detail', (req, res) => {
 });
 
 //글 수정요청 라우터
-router.post('/edit', (req, res) => {
+router.put('/edit', (req, res) => {
 	const temp = {
 		title: req.body.title,
 		content: req.body.content,
@@ -94,8 +94,8 @@ router.post('/edit', (req, res) => {
 });
 
 //글 삭제요청 라우터
-router.post('/delete', (req, res) => {
-	Post.deleteOne({ communityNum: req.body.id })
+router.delete('/delete/:id', (req, res) => {
+	Post.deleteOne({ communityNum: req.params.id })
 		.exec()
 		.then(() => {
 			res.json({ success: true });

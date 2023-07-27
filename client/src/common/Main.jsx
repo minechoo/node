@@ -16,7 +16,7 @@ function Main() {
 	const [List, setList] = useState([]);
 
 	useEffect(() => {
-		axios.post('/api/community/read', { count: 3 }).then((res) => {
+		axios.get(`/api/community/read/3`).then((res) => {
 			//console.log(res);
 			if (res.data.success) setList(res.data.communityList);
 		});
